@@ -31,4 +31,53 @@ DBMS는 관계형 데이터베이스 관리 시스템(RDBMS)과 비관계형 데
 - 비관계형 데이터베이스 관리 시스템(NoSQL): 유연한 데이터 모델을 사용하고, 대규모 분산 데이터를 처리하는 데 적합합니다 (예: MongoDB, Cassandra).
 - 객체 지향 데이터베이스 관리 시스템: 객체 프로그래밍 언어의 구조를 그대로 사용하여 데이터를 저장합니다 (예: ObjectDB).
 
-## 
+## 환경 설정
+언어: C++
+
+openssl install (Linux)
+
+```
+sudo apt update
+sudo apt install libssl-dev
+
+```
+
+컴파일
+```
+sh compile.sh
+//혹은
+g++ -o DBMS DBMS.cpp -lssl -lcrypto
+
+```
+
+## TEST Case
+
+바이너리 파일 실행
+```
+./DBMS
+```
+
+
+DBMS Test Case
+```
+CREATE DATABASE testDB;
+USE testDB;
+CREATE TABLE users id name age;
+INSERT INTO users 1 Alice 30;
+INSERT INTO users 2 Bob 25;
+SELECT * FROM users;
+COMMIT;
+exit
+
+```
+
+프로그램 재실행
+```
+./DBMS
+```
+
+
+생성된 파일DB파일 LOAD
+```
+LOAD testDB;
+```
