@@ -1,0 +1,20 @@
+CREATE DATABASE testDB;
+USE testDB;
+CREATE TABLE users (int)id, (string)name, (int)age;
+INSERT INTO users 1 "Alice" 30;
+INSERT INTO users 2 "Bob" 25;
+CREATE TABLE orders (int)order_id, (int)user_id, (float)amount;
+INSERT INTO orders 1 1 250.50;
+INSERT INTO orders 2 2 150.75;
+COMMIT;
+SELECT * FROM users;
+SELECT * FROM orders;
+SELECT id name FROM users;
+SELECT order_id amount FROM orders;
+exit
+
+USE testDB;
+SELECT * FROM users;
+SELECT * FROM orders;
+exit
+

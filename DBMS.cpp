@@ -191,9 +191,11 @@ void createTable(const string& query) {
             string columnName = columnDef.substr(typeEnd + 1);  // 데이터 타입 이후의 열 이름
             
             // 공백 제거
-            columnName.erase(remove(columnName.begin(), columnName.end(), ' '), columnName.end());
+            cout << "공백 제거 전 이름: " << columnName << " 타입: " << columnType << endl;
+            columnName.erase(remove(columnName.begin(), columnName.end(), ','), columnName.end());
             columnType.erase(remove(columnType.begin(), columnType.end(), ' '), columnType.end());
-
+            cout << "공백 제거 후 이름: " << columnName << " 타입: " << columnType << endl;
+            
             schema.columns.push_back(columnName);
             schema.columnTypes.push_back(columnType);
         } else {
@@ -391,20 +393,17 @@ void selectFromTable(const string& query) {
             break;  // Exit loop to process 'FROM'
         } else {
             // 쉼표로 구분된 여러 열을 처리
-            // 쉼표로 구분된 여러 열을 처리
             size_t commaPos;
-            if ((commaPos = column.find(',')) != string::npos) {
-                selectColumns.push_back(column.substr(0, commaPos));
+            while ((commaPos = column.find(' ')) != string::npos) {
+                string colName = column.substr(0, commaPos);
+                cout << "col: " << colName << endl;
+                colName.erase(remove(colName.begin(), colName.end(), ' '), colName.end());
+                selectColumns.push_back(colName);
                 column.erase(0, commaPos + 1);
-            	//cout << "컬럼 넣은 후 삭제: "<< column << "commaPos: " << commaPos << endl;    
-                
-            } else{
                 column.erase(remove(column.begin(), column.end(), ' '), column.end());
-            	if (column == "FROM") {
-                	break; // 'FROM' 키워드를 만나면 루프 종료
-            	}
-                selectColumns.push_back(column);
             }
+            column.erase(remove(column.begin(), column.end(), ' '), column.end());
+            selectColumns.push_back(column);
         }
     }
 
@@ -486,7 +485,6 @@ void selectFromTable(const string& query) {
         }
     }
 }
-
 
 // COMMIT 쿼리를 처리하고 데이터를 파일에 저장하는 함수
 void commitDatabase() {
